@@ -1,5 +1,5 @@
 let MasSize = 3;
-let Deep = 1;
+let Deep = 2;
 MasSize--;
 let s = 0;
 let Point = 0;
@@ -22,12 +22,12 @@ function AddArrTomove(Player, a, b, Point) {
 function PriorToMove(P, TmpArr, a, b) {
     let P2;
 
-/*    if (P == 1) {
-        P2 = 2;
-    }
-    else {
-        P2 = 1;
-    }*/
+    /*    if (P == 1) {
+            P2 = 2;
+        }
+        else {
+            P2 = 1;
+        }*/
     switch (P) {
         case 1:
             P2 = 2;
@@ -36,7 +36,7 @@ function PriorToMove(P, TmpArr, a, b) {
             P2 = 1;
             break
         case 0:
-            P2 = 1;
+            //   P2 = 1;
             break
 
     }
@@ -69,6 +69,7 @@ function CheckVariant(a, b, Player, CheckPoint) {
         if (s == CheckPoint) {
             i = MasSize;
         }
+        //console.log('s = ',s, CheckPoint);
     }
 
     s = 0; Point = 0;
@@ -165,7 +166,7 @@ function CheckVariant(a, b, Player, CheckPoint) {
 
 
 
-function checkArr(a, b) {
+function checkArr(a, b, c) {
 
     if (a == -1) {
         return a;
@@ -185,6 +186,11 @@ function checkArr(a, b) {
         if (arr[a][b] == '2') {
             //console.log(a, b);
             CheckVariant(a, b, 2, Deep);
+        }
+        if (arr[a][b] == '0' && c == 1) {
+            console.log('P11 = ', a,b);
+            EditGrid(a, b, 1, 0);
+            
         }
         return checkArr(a, b - 1);
 
@@ -214,10 +220,15 @@ function CreateGrid() {
 }
 
 CreateGrid();
+function EditGrid(a, b, c, c1) {
+    arr[a][b] = c;
+    let XODiv = document.getElementById(a + ',' + b);
+    XODiv.textContent = c1;
+}
 
 function MoveAI() {
     let TmpArr = [], TmpArr2 = [], TmpArr3 = [];
-    let a = 0, b = 0, c = 0;
+
     for (let i = 0; i <= Player1.length - 1; i++) {
         TmpArr = Player1[i].split(',');
 
@@ -230,43 +241,34 @@ function MoveAI() {
         if (TmpArr3.length == 0) TmpArr3 = TmpArr;
         if (TmpArr[2] > TmpArr3[2]) TmpArr3 = TmpArr;
     }
+ 
     if (TmpArr2[2] < TmpArr3[2]) {
-        arr[TmpArr3[0]][TmpArr3[1]] = 1;
-        let XODiv = document.getElementById(TmpArr3[0] + ',' + TmpArr3[1]);
-        XODiv.textContent = "0";
-
+        EditGrid(TmpArr3[0], TmpArr3[1], 1, 0);
     }
-    else {
-        if (TmpArr2.length == 0) {
-            arr[a][b] = 1;
-            let XODiv = document.getElementById(a + ',' + b);
-            XODiv.textContent = "0";
+ 
+    if(Player1.length == 0){
+        if (arr[MasSize / 2][MasSize / 2] == 0) {
+            EditGrid(MasSize / 2, MasSize / 2, 1, 0);
             console.log(TmpArr2);
         }
         else {
-            arr[TmpArr2[0]][TmpArr2[1]] = 1;
-            let XODiv = document.getElementById(TmpArr2[0] + ',' + TmpArr2[1]);
-            XODiv.textContent = "0";
+            checkArr(MasSize, MasSize, 1);
         }
-    }
-    Player1.length = 0;
-    Player2.length = 0;
+}
+ //   Player1.length = 0;
+ //   Player2.length = 0;
     // console.log(arr);
 }
 
 function MovePlayer(id) {
     let a = 123, b = 123;
     id.split(',').map(simbol => { a == 123 ? a = simbol : b = simbol })
-    arr[a][b] = 2;
-
-    let XODiv = document.getElementById(id);
-    XODiv.textContent = "X";
-    checkArr(MasSize, MasSize);
+    EditGrid(a, b, 2, 'X');
+    checkArr(MasSize, MasSize, 0);
+    MoveAI();
     console.log('p1-', Player1);
     console.log('p2-', Player2);
-    MoveAI();
-
-    //console.log(arr);
+  
 }
 
 const ClickByid = document.querySelectorAll('.Tab')
