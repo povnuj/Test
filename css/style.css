@@ -63,17 +63,14 @@ body {
 /* Header
 -----------------------------------------------------------------------------*/
 .header {
-	height: 150px;
 	background: #FFE680;
+	border: 5px;
 }
 
 .XO{
 	margin-top: 5%;
-	width: 40%;
-	min-height: 300	px;
-	
-	background-color: thistle;
-	
+	min-width: 30%;
+	min-height: 50%;
 }
 .format{
 	display: flex;
@@ -81,9 +78,31 @@ body {
 	align-content: center;
 }
 .Tab{
+	width: 100%;
 	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	border-style: solid !important;
+	border:  5px;
+	border-color: coral;	
 	
-	height: 50px;
+	height: 70px;
+	font-size: xx-large;
+	color: cornsilk;
 }
+.borderTop{
+	border-top-style: none !important;
+}
+.borderBot{
+	border-bottom-style: none !important;
+}
+.borderL{
+	border-left-style: none !important;
+}
+.borderR{
+	border-right-style: none !important;
+}
+
+
 /* Middle
 -----------------------------------------------------------------------------*/
