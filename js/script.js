@@ -1,5 +1,5 @@
-let MasSize = 3;
-let Deep = 2;
+let MasSize = 9;
+let Deep = 8;
 MasSize--;
 let s = 0, df = 0;
 let Point = 0;
